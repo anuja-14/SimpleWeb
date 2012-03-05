@@ -8,4 +8,18 @@ Protocol Specification :
         
         -> The client sends the file to be accessed to the server using a TCP/IP protocol . Once the server receivers the request , it forks a child and sends the appropriate file to be displayed using the Markem markup language . Immediately after the transfer , the server shuts down the connection . This saves it from keeping too many connections at any point of time .
 
-    
+Things Done :
+
+1 Created a repository for the easy maintainance of the code.
+
+
+Things to be Done:
+
+1 Create proper server-client model for the transfer of files.
+2 Increase the Markem language for easy representation .
+
+Features that can be implemented :
+
+1 Images transfer
+2 Adding some form of styling to the page.
+3 IF possible , introduce the concept of https connection.
