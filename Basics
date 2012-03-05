@@ -1,0 +1,40 @@
+CGI : This is the server side script used to process forms . It plays around with the values given by the user and gets the work done on the server side .
+
+   -> There is a long string containing all the information given by the user . This long string is got depending on what type of request is sent by the user :
+        
+        * For GET submissions , it's in the environment variable QUERY_STRING
+        * For POST submissions, read it from STDIN. The exact number of bytes to read is in the environment-variable CONTENT_LENGTH
+
+HTTP : Very simple protocol . It is a connection less protocol. 
+
+    -> All that happens is that the client sends a request for a URL to the server . The server analyzes the request and sends the result back to the client. Once this is sent , the server closes the connection immediately . This makes this protocol a connectionless protocol ( stateless protocol ) .
+
+    -> The request sent by the client is in the form ( each of the lines can end either with CRLR or just LR )
+
+        1 Initial line 
+        2 zero or more header lines
+        3 Blank line 
+        4 Optional message body 
+
+    PS : CR and LR stand for ASCII values 13 and 10.
+
+    1) Initial Line : The request line has 3 parts separated by spaces : method name , path to file , version of HTTP . 
+        Ex : GET path_to_file HTML_version
+
+    2) Headers to be defined to let the server know various things about the web-browser and the user . ( The type of browser , the language etc )
+
+
+
+    -> The recieved packet is also the same . Just the top header line is different. In this case , the header line is of the form  :
+            
+            HTTP/version Status_code String_output
+
+            Status_code : 
+                1xx : informational message only
+                2xx : success of some kind
+                3xx : redirects to the link given in the location field in a later part of the message
+                4xx : problem on the client side
+                5xx : problem on the server side
+
+
+
