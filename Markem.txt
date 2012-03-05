@@ -17,4 +17,8 @@ Page Display Tags :
 
 * <break> : Tag used to display a blank line.
 
-* 
+* <link > : Tag for some form of link
+
+* <image > : Tag for an image
+
+For now , these are the main important things. Later on , we can even think of adding stuff on Tables , forms , lists etc.
