@@ -1,0 +1,11 @@
+Date : 5th March , 2012
+
+Protocol Name : Webmaster 
+
+Protocol Specification : 
+
+    This protocol is designed for effective transfer of files and their viewing over the network . There is a special markup language defined for the same called the Markem language . The language is defined in the corresponding Markem.txt file. The protocol is simple :
+        
+        -> The client sends the file to be accessed to the server using a TCP/IP protocol . Once the server receivers the request , it forks a child and sends the appropriate file to be displayed using the Markem markup language . Immediately after the transfer , the server shuts down the connection . This saves it from keeping too many connections at any point of time .
+
+    

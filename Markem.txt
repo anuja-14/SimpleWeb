@@ -1,0 +1,20 @@
+The markup language defined for the new WEB language being used :
+
+
+Page markup tags :
+
+* <page_title> : This markup defines the title of the page.
+
+* <page_head> : This is where all the information regarding the page is specified .
+
+* <page_body> : This element contains all the information to be displayed on the page . This is what contains all the relavant message of the page.
+
+Page Display Tags :
+
+* <headingNum> : This can be used to set the heading corresponding to the type of text.
+
+* <para> : Tag to define the start of a paragraph . ( TODO : Point to consider is whether it is a good idea to start the para with a little indentation or is it better to start right at the beginning )
+
+* <break> : Tag used to display a blank line.
+
+* 
