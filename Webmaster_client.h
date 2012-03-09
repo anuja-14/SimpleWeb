@@ -23,8 +23,8 @@
 char * create_request_line ( char * method , char * file_path  );
 // We can set the header's based on environment variables that can be set when the browser is opened.
 char * create_header_line (); 
-char * message_body();
+char * message_body(char * optional_message);
 
-char * create_packet ( char * method , char * file_path );
+char * create_packet ( char * method , char * file_path , char * optional_message);
 
 #endif

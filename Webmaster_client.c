@@ -46,8 +46,47 @@ char * create_request_line ( char* method , char* file_path )
 
     reply[j+i] = '/';
     
-    // TODO : Add the version number here and then finally add the LRCR end to the line and send the request back to the calling function.
+    // TODO : Add the version number(ENV variable) here and then finally add the LRCR end to the line and send the request back to the calling function.
+}
 
+char * create_header_line ()
+{
+    // TODO : Again , based on the ENV variables we have to create the appropriate header_line and send the packet.
+}
 
+char * message_body ( char * optional_message )
+{
+    // TODO : Add a LRCR at the end of the message and send it back to the caller to create the whole packet to be sent.
+}
 
+char * create_packet ( char * method , char * file_path , char * optional_message )
+{
+    char request[100];
+    int i,j,k;
+
+    char * packet_line = create_request_line ( method , file_path );
+    for ( i = 0 ; i < strlen(first_line) ; i++ )
+    {
+        request[i] = first_line[i];
+    }
+    request[i] = "\n";
+    request[i+1] = "\n";
+    i=i+2;
+
+    packet_line = create_header_line ();
+    for ( j=0;  j< strlen(packet_line) ; j++ )
+    {
+        request[i+j] = packet_line[j];
+    }
+    request[i+j] = "\n";
+    j =j+1;
+    packet_line = message_body ( optional_message );
+
+    for ( k = 0 ; k < strlen(packet_line) ; k++ )
+    {
+        request[i+j+k] = packet_line[k];
+    }
+    request[i+j+k] = '\0';
+
+    return request;
 }
