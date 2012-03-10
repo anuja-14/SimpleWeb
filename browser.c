@@ -33,6 +33,7 @@
 #include <signal.h>
 
 #define MAXDATASIZE 100
+#define MAX_URL_LENGTH 100
 
 // Get the address from the struct hiding whether the addressing is IPv4 or IPv6.
 void *get_in_addr(struct sockaddr *sa)
@@ -50,6 +51,8 @@ int main(int argc, char *argv[])
     struct addrinfo hints, *servinfo, *p;
     int rv;
     char s[INET6_ADDRSTRLEN] ;
+
+    char file[MAX_URL_LENGTH];
 
     if (argc != 3) 
     {
@@ -99,8 +102,11 @@ int main(int argc, char *argv[])
     freeaddrinfo(servinfo); // all done with this structure
 
     // Get the file name from the python browser. Once that is done , send the corresponding link to the server .
+    // For now , lets take it from the user.
+    printf("Enter the URL of the file that you would like to view : \n");
+    scanf("%s" , file );
 
-    if ( send ( sockfd , buf , MAXDATASIZE -1 , 0 ) == -1 )
+    if ( send ( sockfd , file , MAXDATASIZE -1 , 0 ) == -1 )
     {
         perror("Send ");
         exit(-1);

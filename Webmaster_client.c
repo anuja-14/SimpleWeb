@@ -90,3 +90,9 @@ char * create_packet ( char * method , char * file_path , char * optional_messag
 
     return request;
 }
+
+char * test_simple_browser ( char * file_to_path )
+{
+    
+}
+
