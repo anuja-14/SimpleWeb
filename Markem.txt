@@ -1,24 +1,57 @@
 The markup language defined for the new WEB language being used :
 
-
-Page markup tags :
+------------------------------------------------------------------------------------------
+Section 1 : Page markup tags :
+===============================
+*<MARKEM> : The main upper tag to enclose the whole file.
 
 * <page_title> : This markup defines the title of the page.
 
 * <page_head> : This is where all the information regarding the page is specified .
 
-* <page_body> : This element contains all the information to be displayed on the page . This is what contains all the relavant message of the page.
+* <page_body> : This element contains all the information to be displayed on the
+page . This is what contains all the relavant message of the page.
 
-Page Display Tags :
+
+Section 2 : Page Display Tags :
+================================
 
 * <headingNum> : This can be used to set the heading corresponding to the type of text.
 
-* <para> : Tag to define the start of a paragraph . ( TODO : Point to consider is whether it is a good idea to start the para with a little indentation or is it better to start right at the beginning )
+* <para> : Tag to define the start of a paragraph . 
+
+* <em> : Make the text bold till you encounter bold text.
 
 * <break> : Tag used to display a blank line.
 
-* <link > : Tag for some form of link
+* <link markef="foo" > : Tag for some form of link with the name foo. ( look at the same folder as the index file )
 
-* <image > : Tag for an image
+* <image="blah.png" > : Tag for an image with the name blah.png ( look in the same folder as the index file )
 
+* <itemize> : There will be a numbered list . Each element of the numbered list will start with 
+the word <item>. Obviously , the list should end with the tag </itemize>
+
+-----------------------------------------------------------------------------------------------------------------
+
+Section 3 : Block text display characteristics :
+=================================================
+
+Note that if you want to style the given text of the para / body / any block of text .
+You can add any of the following properties to the text:
+
+-> color : Choose any of the colors from red , blue , green , white , black , cyan.
+
+-> font : Set the font for the given text . 
+
+-> margin : Do you want the first character of the text to be at some distance from the left-margin . You got it.
+            Just add margin with a number as the argument . 
+
+-> underline : If you want the text to be underlined in the given tag , just add underline in the 
+                parameters of the font.
+
+Ex : <para color = "Blue" , font = "Times" , margin = 2 , underline = 1 >
+-------------------------------------------------------------------------------------------------------------------
+
+
+==========================================================================================================================
 For now , these are the main important things. Later on , we can even think of adding stuff on Tables , forms , lists etc.
