@@ -24,9 +24,9 @@ Section 2 : Page Display Tags :
 
 * <break> : Tag used to display a blank line.
 
-* <link markef="foo" > : Tag for some form of link with the name foo. ( look at the same folder as the index file )
+* <link markef="foo" display="blah"> : Tag for some form of link with the name foo and displayed as blah on the GUI. ( look at the same folder as the index file )
 
-* <image="blah.png" > : Tag for an image with the name blah.png ( look in the same folder as the index file )
+* <image markef="blah.png" > : Tag for an image with the name blah.png ( look in the same folder as the index file )
 
 * <itemize> : There will be a numbered list . Each element of the numbered list will start with 
 the word <item>. Obviously , the list should end with the tag </itemize>
