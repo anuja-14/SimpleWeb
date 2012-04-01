@@ -12,10 +12,10 @@ def writecontent(msg ,log ):
 # Start of the code to display the browser
 root = Tk()
 root.geometry('%sx%s+0+0'% root.maxsize())
-w = Text ( root , bg = "yellow" , wrap = WORD  );           # text widget created 
+w = Text ( root , bg = "yellow" , wrap = WORD  )           # text widget created 
 w.grid()
 w.pack(side=LEFT , fill = BOTH , expand = YES )
-f = open('text_box.py' , 'r' )          
+f = open('markemfiles/index.markem' , 'r' )          
 img = PhotoImage ( file = 'Sachin_Ramesh_Tendulkar.gif' )           # Init the image to be put in the page and gets it ready :)
 count = 0
 for line in f :
