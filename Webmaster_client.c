@@ -21,10 +21,15 @@
 #include <math.h>
 #include "Webmaster_client.h"
 
+char CR = 0x0D;
+char LR = 0x0A;
+
+
 // TODO : Not sure of how to use the environment variable . Have to check up on that to get the version number. 
 char * create_request_line ( char* method , char* file_path )
 {
-    char * request[100];
+     char reply[100];
+     char request[100];
     char protocol_name[10] = "Webmaster";
     int i;
     strcpy( request , method );
@@ -52,6 +57,7 @@ char * create_request_line ( char* method , char* file_path )
 char * create_header_line ()
 {
     // TODO : Again , based on the ENV variables we have to create the appropriate header_line and send the packet.
+
 }
 
 char * message_body ( char * optional_message )
@@ -63,22 +69,21 @@ char * create_packet ( char * method , char * file_path , char * optional_messag
 {
     char request[100];
     int i,j,k;
-
-    char * packet_line = create_request_line ( method , file_path );
+    char *packet_line;
+        char * first_line = create_request_line ( method , file_path );
     for ( i = 0 ; i < strlen(first_line) ; i++ )
     {
         request[i] = first_line[i];
     }
-    request[i] = "\n";
-    request[i+1] = "\n";
-    i=i+2;
+    request[i] = CR;
+    i=i+1;
 
     packet_line = create_header_line ();
     for ( j=0;  j< strlen(packet_line) ; j++ )
     {
         request[i+j] = packet_line[j];
     }
-    request[i+j] = "\n";
+    request[i+j] = CR;
     j =j+1;
     packet_line = message_body ( optional_message );
 
@@ -86,13 +91,16 @@ char * create_packet ( char * method , char * file_path , char * optional_messag
     {
         request[i+j+k] = packet_line[k];
     }
-    request[i+j+k] = '\0';
+    request[i+j+k] = CR;
+    request[i+j+k+1]= LR;
 
     return request;
 }
 
-char * test_simple_browser ( char * file_to_path )
+/*
+char * test_simple_browser ( char* method_name, char * file_to_path )
 {
-    
+    char optional_message[10] = "";
+    char packet[100] = create_packet(method_name, file_to_path, method);
 }
-
+*/

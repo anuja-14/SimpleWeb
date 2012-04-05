@@ -11,6 +11,7 @@
  *       Compiler:  gcc
  *
  *         Author:  Vaibhav Agarwal , vaisci310@gmail.com
+ *                  Anuja Agrawal, anujaagrw@gmail.com
  *         Points Learnt : 
  *
  * =====================================================================================
@@ -32,8 +33,13 @@
 #include <fcntl.h>
 
 #define BACKLOG 10
+#define MAX_URL_LENGTH 100
+#define MAX_DATA_SIZE 100
 
 #define MESSAGESIZE 100
+
+char LR = 0x0A;
+char CR = 0x0D;
 
 // Using Ctrl-C to stop the process
 void sigchld_handler(int s)
@@ -50,6 +56,62 @@ void *get_in_addr(struct sockaddr *sa)
     return &(((struct sockaddr_in6*)sa)->sin6_addr);
 }
 
+
+char* get_file_path(char* recv_data)
+{
+     int cnt = 0;    
+    char file_path[MAX_URL_LENGTH];
+    while(recv_data[cnt] != LR)
+    {
+         file_path[cnt] = recv_data[cnt];
+    }
+    file_path[cnt] = '\0';
+    printf("file_path %s", file_path);
+}
+
+char* get_method(char* recv_data)
+{
+}
+
+char* getHeaders()
+{
+}
+
+char* getMessageBody()
+{
+}
+
+void process(char *recv_data, int connection)
+{
+ char* file_path = get_file_path(recv_data);
+ FILE *fp;
+ char file_data[MAX_DATA_SIZE];
+ int sentBytes;
+  if((fp = fopen(file_path, "r")) == NULL)
+ {
+     printf("\nFile I/O  Fail");
+     printf("\nFile Data Sent Quit : " );
+     gets(file_data);
+     if((sentBytes = send(connection, file_data, strlen(file_data), 0)) == -1)
+     {
+         perror("SEND");
+     }
+     close(connection);
+  }
+
+fseek(fp, 0, SEEK_SET);
+
+while(fgets(file_data, sizeof(file_data), fp) != NULL)
+{
+    if((sentBytes = send(connection, file_data, strlen(file_data), 0)) == -1)
+    {
+        perror("SENDBYTES");
+        exit(1);
+    }
+}
+// FILE DATA SENT
+}
+
 int main( int argc , char * argv[] )
 {
     int sockfd , new_fd , return_value , numbytes ;
@@ -58,7 +120,9 @@ int main( int argc , char * argv[] )
     socklen_t sin_size;
     char s[INET6_ADDRSTRLEN];
     char request[MESSAGESIZE];
+    char file_data[MAX_DATA_SIZE];
     struct sigaction sa;
+    int sentBytes;
 
     memset(&hints , 0 , sizeof hints );
     hints.ai_family = AF_UNSPEC;
@@ -139,6 +203,9 @@ int main( int argc , char * argv[] )
         {
             // this is the child process
            close(sockfd); // child doesn't need the listener
+           char recv_data[MAX_DATA_SIZE];
+           int bytes_received = recv(new_fd, recv_data, MAX_DATA_SIZE, 0);
+           process(recv_data, new_fd);
 
            // Now generate the header line , and other lines based on the protocol and send the resultant packets to the client for it to display the same to the user.For now , we are only going to look at text data . Then later on , we can think of images too.
            // Once that is done , stop the present child and wait for further connections.
