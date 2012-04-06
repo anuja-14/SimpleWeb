@@ -73,7 +73,7 @@ void get_file_path(char* recv_data, char *file_path)
         cnt++;
         cnt_file++;
     }
-    file_path[cnt_file+1] = '\0';
+    file_path[cnt_file] = '\0';
     printf("file_path %s", file_path);
 }
 
@@ -96,8 +96,8 @@ void process(char *recv_data, int connection)
     FILE *fp;
     char file_data[MAX_DATA_SIZE];
     int sentBytes;
-    printf("file path in process %s", file_path);
-    if((fp = fopen("test1.html", "r")) == NULL)
+    printf("file path in process %shello", file_path);
+    if((fp = fopen(file_path, "r")) == NULL)
     {
         printf("\nFile I/O  Fail");
         printf("\nFile Data Sent Quit : " );

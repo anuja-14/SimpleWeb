@@ -2,14 +2,30 @@ from bs4 import BeautifulSoup , Tag
 import sys
 from Tkinter import *
 import tkHyperlink
+import subprocess
 
+import os
 
 class BrowserWindow:
 
+    
 
     def __init__(self):
         self.root = Tk()
         self.root.geometry('%sx%s+0+0'% self.root.maxsize() )
+        self.textFrame = Frame(self.root)
+        self.entryLabel = Label(self.textFrame)
+        self.entryLabel["text"] = "Enter the URL"
+        self.entryLabel.pack(side = LEFT)
+
+        self.entryWidget = Entry(self.textFrame)
+        self.entryWidget["width"] = 50
+        self.entryWidget.pack(side=LEFT)
+        self.textFrame.pack()
+        self.button = Button(self.root, text="Submit", command=self.displayText)
+        self.button.pack()
+
+
         # TODO : Root menu has to be defined here using some kind of function
         # TODO : Functionality to add tabs whenever new page is opened
         self.w = Text ( self.root , bg="white" , wrap = WORD )
@@ -18,11 +34,29 @@ class BrowserWindow:
         self.root.title('SiMple Web')
         self.count = 0
 
+    def displayText(self):
+        """ Display the Entry text value. """
+
+
+        if self.entryWidget.get().strip() == "":
+            tkMessageBox.showerror("Tkinter Entry Widget", "Enter URL")
+        else:
+            URL = self.entryWidget.get().strip();
+            os.system("./client 7000 localhost " + URL);
+            numlines = self.w.index('end - 1 line').split(' . ')[0]
+            self.w.delete(1.0 , numlines )
+            self.openPage("output.html")
+
+
+
+
     def openPage (self , file):
         input = open(file , 'r')
+        
         doc = input.readlines()
         soup = BeautifulSoup(''.join(doc))
         soup.prettify()
+        print soup
         self.root.title = soup.page_title.contents[0]
         tag = soup.page_body
         self.parseDisplay( tag , tag.attrs )
@@ -81,8 +115,12 @@ class BrowserWindow:
         self.root.mainloop()
 
 if __name__=="__main__":
+
     window = BrowserWindow()
-    window.openPage(sys.argv[1])
+    home_page = "markemfiles/index.markem"
+  
+
+    window.openPage(home_page)
     window.start()
 
 

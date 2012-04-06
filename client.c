@@ -12,10 +12,10 @@
 int main(int argc, char** argv)
 {
 	FILE *fp;
-	fp = fopen("test.html", "w");
+	fp = fopen("output.html", "w");
 	int clientSockID, bytes_recieved, sentBytes;
 	char packet[1024];
-	char file_path[1024], recvData[1024];
+	char *file_path, recvData[1024];
 	struct hostent *host;
 	struct sockaddr_in serverAddr;
 	struct timeval timeout;
@@ -38,9 +38,13 @@ int main(int argc, char** argv)
 	}
 
 	printf("\nConnection Established : Enter File URL : ");
-	gets(file_path);
+//	gets(file_path);
+	file_path = argv[3];
+	printf("%s file_path commandline", file_path);
 
 	create_packet("GET",file_path, "", packet);
+	printf("packet being sent %shello1", packet);
+	printf("foo bah");
 	if( (sentBytes =  send(clientSockID, packet, strlen(packet), 0)) == -1)
 	{
 		perror("sentBytes");

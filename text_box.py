@@ -1,6 +1,17 @@
 from Tkinter import *
+import tkMessageBox
 
-# Writes content at the current end of the file . So we could just use this to print data.
+def displayText():
+    """ Display the Entry text value. """
+
+    global entryWidget
+
+    if entryWidget.get().strip() == "":
+        tkMessageBox.showerror("Tkinter Entry Widget", "Enter a text value")
+    else:
+        tkMessageBox.showinfo("Tkinter Entry Widget", "Text value =" + entryWidget.get().strip()) 
+
+
 def writecontent(msg ,log ):
     numlines = log.index('end - 1 line').split(' . ')[0]
     log['state']='normal'
@@ -12,9 +23,25 @@ def writecontent(msg ,log ):
 # Start of the code to display the browser
 root = Tk()
 root.geometry('%sx%s+0+0'% root.maxsize())
+textFrame = Frame(root)
+entryLabel = Label(textFrame)
+entryLabel["text"] = "Enter the URL"
+entryLabel.pack(side = LEFT)
+
+entryWidget = Entry(textFrame)
+entryWidget["width"] = 50
+entryWidget.pack(side=LEFT)
+textFrame.pack()
+
+button = Button(root, text="Submit", command=displayText)
+button.pack()
+
+
 w = Text ( root , bg = "yellow" , wrap = WORD  )           # text widget created 
 w.grid()
 w.pack(side=LEFT , fill = BOTH , expand = YES )
+
+
 f = open('markemfiles/index.markem' , 'r' )          
 img = PhotoImage ( file = 'Sachin_Ramesh_Tendulkar.gif' )           # Init the image to be put in the page and gets it ready :)
 count = 0
