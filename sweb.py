@@ -8,8 +8,6 @@ import os
 
 class BrowserWindow:
 
-    
-
     def __init__(self):
         self.root = Tk()
         self.root.geometry('%sx%s+0+0'% self.root.maxsize() )
@@ -37,15 +35,14 @@ class BrowserWindow:
     def displayText(self):
         """ Display the Entry text value. """
 
-
         if self.entryWidget.get().strip() == "":
             tkMessageBox.showerror("Tkinter Entry Widget", "Enter URL")
         else:
             URL = self.entryWidget.get().strip();
-            os.system("./client 7000 localhost " + URL);
+            os.system("./client " + sys.argv[1] + " " + sys.argv[2] +" " + URL);
             numlines = self.w.index('end - 1 line').split(' . ')[0]
             self.w.delete(1.0 , numlines )
-            self.openPage("output.html")
+            self.openPage( URL );
 
 
 

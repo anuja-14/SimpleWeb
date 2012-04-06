@@ -9,10 +9,14 @@
 #include<unistd.h>
 #include<errno.h>
 
+int gettingFile ( char * packet )
+{
+    return 1;
+}
+
 int main(int argc, char** argv)
 {
 	FILE *fp;
-	fp = fopen("output.html", "w");
 	int clientSockID, bytes_recieved, sentBytes;
 	char packet[1024];
 	char *file_path, recvData[1024];
@@ -21,6 +25,7 @@ int main(int argc, char** argv)
 	struct timeval timeout;
 	host = gethostbyname((char *)argv[2]);
 
+    // Not able to connect to the server . Error and exit
 	if((clientSockID = socket(AF_INET, SOCK_STREAM, 0)) == -1)
 	{
 		perror("Socket");
@@ -37,19 +42,18 @@ int main(int argc, char** argv)
 		exit(1);
 	}
 
-	printf("\nConnection Established : Enter File URL : ");
 //	gets(file_path);
 	file_path = argv[3];
-	printf("%s file_path commandline", file_path);
 
 	create_packet("GET",file_path, "", packet);
-	printf("packet being sent %shello1", packet);
-	printf("foo bah");
 	if( (sentBytes =  send(clientSockID, packet, strlen(packet), 0)) == -1)
 	{
 		perror("sentBytes");
 	}
-	int 	cnt = 0;
+	int cnt = 0;
+    char *BASE_URL = "cache/";
+    char * fileSave = strcat(BASE_URL , file_path );
+	fp = fopen(fileSave, "w");
 	while(1)
 	{
 		bytes_recieved = recv(clientSockID, recvData, 1024 , 0);
@@ -62,12 +66,16 @@ int main(int argc, char** argv)
 		}
 		else
 		{	
-			fprintf(fp, recvData);
-			recvData[bytes_recieved] = '\0';
-			printf("\nRecieved data = %s " , recvData);
+            if ( gettingFile( recvData ))
+            {
+                fprintf(fp, recvData);
+                recvData[bytes_recieved] = '\0';
+                printf("\nRecieved data = %s " , recvData);
+            }
 		}
 		cnt++;
 	}
 	fclose(fp);
 
 }
+
