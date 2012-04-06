@@ -9,9 +9,28 @@
 #include<unistd.h>
 #include<errno.h>
 
-int gettingFile ( char * packet )
+char *analyzePacket ( char * packet , char * message)
 {
-    return 1;
+    int cnt = 0,cnt_message = 0;    
+    char changed;
+    while(packet[cnt] != ' ')
+    {
+        cnt++;
+    }
+    while(recv_data[cnt] != ' ')
+    {
+        changed = recv_data[cnt];
+        cnt++;
+        cnt++;
+        if ( changed == '1' )
+        {
+            message[cnt_message]=packet[cnt];
+            cnt++;
+            cnt_message++;
+        }
+        else
+            return NULL;
+    }
 }
 
 int main(int argc, char** argv)
@@ -66,7 +85,9 @@ int main(int argc, char** argv)
 		}
 		else
 		{	
-            if ( gettingFile( recvData ))
+            char * message;
+            analyzePacket( bytes_recieved , message );
+            if ( message != NULL )
             {
                 fprintf(fp, recvData);
                 recvData[bytes_recieved] = '\0';
