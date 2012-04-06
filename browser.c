@@ -46,14 +46,14 @@ void *get_in_addr(struct sockaddr *sa)
 
 int main(int argc, char *argv[],char* envp[])
 {
-    char method[6];
+    char *method;
     int sockfd, numbytes;
     char buf[MAXDATASIZE], reply[MAXDATASIZE];
     struct addrinfo hints, *servinfo, *p;
     int rv;
     char s[INET6_ADDRSTRLEN] ;
 
-    char file[MAX_URL_LENGTH];
+    char *file;
 
     if (argc != 3) 
     {
@@ -105,17 +105,15 @@ int main(int argc, char *argv[],char* envp[])
     // Get the file name from the python browser. Once that is done , send the corresponding link to the server .
     // For now , lets take it from the user.
 //    printf("Enter the URL of the file that you would like to view : \n");
-    scanf("%s" , file );
-    scanf("%s", method);
-    
+  //  scanf("%s" , file );
   //  The following environmental variables are set by the python script which calss this client code
-  //  file = getenv("FILE_PATH");
-  //  method = getenv("METHOD");
+    file = getenv("FILE_PATH");
+    method = getenv("METHOD");
     printf("file %s", file);
 
     printf("METHOD %s", method);
-    char *packet;
-    packet = create_packet(method, file, "");
+    char packet[MAXDATASIZE];
+     create_packet(method, file, "", packet);
 
 
     if ( send ( sockfd , packet , MAXDATASIZE -1 , 0 ) == -1 )

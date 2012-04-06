@@ -6,12 +6,14 @@ all: client server
 server: server.c
 	gcc -g -o server server.c
 
-client: browser.o Webmaster_client.o
-	$(CC) -g -o $@ browser.o Webmaster_client.o
+client: client.o Webmaster_client.o
+	$(CC) -g -o $@ client.o Webmaster_client.o
 
-browser.o: browser.c
+client.o: client.c
 	gcc -g -c $<
 
 Webmaster_client.o: Webmaster_client.c
 	gcc -g -c $<
-
+clean:
+	rm *.o
+	rm server client

@@ -1,0 +1,17 @@
+CC = gcc
+strict_options = -Wall -pedantic
+
+all: client server
+
+server: server1.c
+	gcc -g -o server server1.c
+
+client: browser.o Webmaster_client.o
+	$(CC) -g -o $@ browser.o Webmaster_client.o
+
+browser.o: browser.c
+	gcc -g -c $<
+
+Webmaster_client.o: Webmaster_client.c
+	gcc -g -c $<
+
