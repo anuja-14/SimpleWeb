@@ -40,7 +40,7 @@ void create_initial_line ( char* HTTP_VERSION , char* status_code, char* initial
         // Ex : GET www.google.com ( j = 3 , request[4] = "w"  , 4 = j + 1 + 0 (i)
          initial_line[j+1+i] =  status_code[i];
     }
-    initial_line[j+i+1]='\0'; 
+    initial_line[j+i+1]=LR; 
     /*  j = j+2+i;  // Again increase j by 1 so as to have the space between file_name and protocol
 
     for ( i = 0 ; i < strlen(string_output) ; i++ )
@@ -73,9 +73,8 @@ void create_packet ( char * HTTP_VERSION , char * status_code , char * file_data
     {
         request[i] = initial_line[i];
     }
-    request[i] = LR;
-    i++;
-   for(j = 0; j< strlen(file_data);j++)
+    printf("The packet generated is %s and the length of file_data is %d\n" , request , strlen(file_data));
+    for(j = 0; j< strlen(file_data);j++)
 	{
 	request[i+j] = file_data[j]; 
 	}

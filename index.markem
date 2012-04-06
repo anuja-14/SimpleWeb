@@ -1,0 +1,75 @@
+1.0 2
+<markem>
+1.0 2
+
+1.0 2
+<page_head>
+1.0 2
+    
+1.0 2
+    <page_title> MARKEM ALL !! </page_title>
+1.0 2
+
+1.0 2
+</page_head>
+1.0 2
+
+1.0 2
+<page_body color="red"  >
+1.0 2
+
+1.0 2
+    <para > Welcome to the world of Markem . Markemwill help you mark the language the way you like. If you still dont believe it , well it's your <em color="blue"> FAULT </em>.
+1.0 2
+
+1.0 2
+    <break></break>
+1.0 2
+    <break></break>
+1.0 2
+
+1.0 2
+   Markem was a language started on one find day when the great <link markref="../CS.markem" display="CS page"> was not really playing well . In frustration , without nothing else to do but feel sory for the great man , Markem was decided as the source of comfort . If you expected some great story on foo/blah , well its your fault . For more details on Markem , you dont need to look any further . This will give you all the information that you want to see on it !! . For more details , click on any of the links below . The little master <image markref="Sachin_Ramesh_Tendulkar.gif">
+1.0 2
+
+1.0 2
+</para>
+1.0 2
+
+1.0 2
+<para color="Green" > 
+1.0 2
+
+1.0 2
+    "Put links to files here . Once they are cliked , the code should ask for the appropriate page " 
+1.0 2
+
+1.0 2
+<itemize>
+1.0 2
+<item> About
+1.0 2
+<item> Start time
+1.0 2
+<item> End time
+1.0 2
+<item> Done
+1.0 2
+</itemize>
+1.0 2
+
+1.0 2
+Now that we know all these , we are way better than the rest .
+1.0 2
+   </para>
+1.0 2
+
+1.0 2
+
+1.0 2
+</page_body>
+1.0 2
+
+1.0 2
+</markem>
+

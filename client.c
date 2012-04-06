@@ -13,32 +13,39 @@ char *analyzePacket ( char * packet , char * message)
 {
     int cnt = 0,cnt_message = 0;    
     char changed;
-    while(packet[cnt] != ' ')
+    fflush(stdout);
+   while(packet[cnt] != ' ')
     {
         cnt++;
     }
-    while(recv_data[cnt] != ' ')
+    cnt++;
+    changed = packet[cnt];
+    cnt++;
+    cnt++;
+  
+    while(packet[cnt] !=0x0D)
     {
-        changed = recv_data[cnt];
-        cnt++;
-        cnt++;
-        if ( changed == '1' )
+        if ( changed == '2' )
         {
             message[cnt_message]=packet[cnt];
             cnt++;
             cnt_message++;
         }
         else
-            return NULL;
+           return NULL;
     }
+    
+            //printf("%s \n" , message);
+    fflush(stdout);
+ 
 }
 
 int main(int argc, char** argv)
 {
 	FILE *fp;
 	int clientSockID, bytes_recieved, sentBytes;
-	char packet[1024];
-	char *file_path, recvData[1024];
+	char packet[2048];
+	char *file_path, recvData[2048];
 	struct hostent *host;
 	struct sockaddr_in serverAddr;
 	struct timeval timeout;
@@ -63,35 +70,47 @@ int main(int argc, char** argv)
 
 //	gets(file_path);
 	file_path = argv[3];
+    //printf("File to be got : %s " , file_path );
+    fflush(stdout);
 
-	create_packet("GET",file_path, "", packet);
+	create_packet("GET", file_path, "", packet);
+    //printf("Packet is %s \n",packet);
+    fflush(stdout);
 	if( (sentBytes =  send(clientSockID, packet, strlen(packet), 0)) == -1)
 	{
 		perror("sentBytes");
 	}
 	int cnt = 0;
     char *BASE_URL = "cache/";
-    char * fileSave = strcat(BASE_URL , file_path );
-	fp = fopen(fileSave, "w");
+    char fileSave[100];
+    fileSave[0] = '\0';
+    strcat(fileSave , BASE_URL );
+    strcat(fileSave , file_path);
+    //printf("The file is %s " , fileSave );
+    fflush(stdout);
+	fp = fopen(file_path, "w");
+    int count = 0;
 	while(1)
 	{
-		bytes_recieved = recv(clientSockID, recvData, 1024 , 0);
-		recvData[bytes_recieved] = '\0';
+        if (count > 40)
+            break;
+        count++;
+		bytes_recieved = recv(clientSockID, recvData, 2048 , 0);
 		if (recvData[0] == 0x0D)
 		{
-			printf("File Recieved \n");
 			close(clientSockID);
 			break;
 		}
 		else
 		{	
-            char * message;
-            analyzePacket( bytes_recieved , message );
+		recvData[bytes_recieved] = '\0';
+            char message[2048];
+            analyzePacket( recvData , message );
             if ( message != NULL )
             {
                 fprintf(fp, recvData);
                 recvData[bytes_recieved] = '\0';
-                printf("\nRecieved data = %s " , recvData);
+                //printf("\nRecieved data = %s " , recvData);
             }
 		}
 		cnt++;

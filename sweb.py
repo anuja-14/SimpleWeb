@@ -39,10 +39,11 @@ class BrowserWindow:
             tkMessageBox.showerror("Tkinter Entry Widget", "Enter URL")
         else:
             URL = self.entryWidget.get().strip();
+            print "./client " + sys.argv[0] + " " + sys.argv[1] +" " + URL
             os.system("./client " + sys.argv[1] + " " + sys.argv[2] +" " + URL);
             numlines = self.w.index('end - 1 line').split(' . ')[0]
             self.w.delete(1.0 , numlines )
-            self.openPage( URL );
+            self.openPage( "/cache/"+URL );
 
 
 

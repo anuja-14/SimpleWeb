@@ -37,7 +37,7 @@
 #define MAX_DATA_SIZE 1024
 #define MAX_PACKET_SIZE 2048
 
-#define MESSAGESIZE 100
+#define MESSAGESIZE 1000
 // Using Ctrl-C to stop the process
 void sigchld_handler(int s)
 {
@@ -64,8 +64,7 @@ void get_file_path(char* recv_data, char *file_path)
 		cnt++;
 	}
 	method[cnt] = '\0';
-    
-		cnt++;
+	cnt++;
 	while(recv_data[cnt] != ' ')
 	{
 		file_path[cnt_file] = recv_data[cnt];
@@ -73,7 +72,6 @@ void get_file_path(char* recv_data, char *file_path)
 		cnt_file++;
 	}
 	file_path[cnt_file] = '\0';
-	printf("file_path %s", file_path);
 }
 
 char* get_method(char* recv_data)
@@ -91,13 +89,19 @@ char* getMessageBody()
 void process(char *recv_data, int connection)
 {
     char packet[MAX_PACKET_SIZE];
-	char file_path[MAX_URL_LENGTH];
+	char file_path[MAX_DATA_SIZE];
 	get_file_path(recv_data, file_path);
+    printf("Finished getting the file path !!");
 	FILE *fp;
 	char file_data[MAX_DATA_SIZE];
-	int sentBytes;
-	printf("file path in process %shello", file_path);
-	if((fp = fopen(file_path, "r")) == NULL)
+    char fileSend[100];
+    fileSend[0] = '\0';
+	int sentBytes,i;
+    strcat(fileSend , "markemfiles/" );
+    strcat(fileSend,file_path);
+        printf("File to be sent : %s atnhaeu " , fileSend );
+        fflush(stdout);
+	if((fp = fopen(fileSend, "r")) == NULL)
 	{
 		printf("\nFile I/O  Fail");
 		printf("\nFile Data Sent Quit : " );
@@ -110,24 +114,27 @@ void process(char *recv_data, int connection)
 	}
 
 	fseek(fp, 0, SEEK_SET);
+     printf("\nFile to be sent : %s\n" , fileSend );
 
 	while(fgets(file_data, sizeof(file_data), fp) != NULL)
 	{
-        create_packet("1.0", "2xx", file_data, packet);
+        char version[] = "1.0";
+        char status[] = "2";
+        create_packet(version, status , file_data, packet);
 		if((sentBytes = send(connection, packet, MAX_PACKET_SIZE, 0)) == -1)
 		{
 			perror("SENDBYTES");
 			exit(1);
 		}
 		printf("%s sending data packet ", file_data);
+        printf("-------------------------------------------------\n");
 	}
-	file_data[0] = '0x0D';
+	file_data[0] = 0x0D;
 	if((sentBytes = send(connection, file_data, strlen(file_data), 0)) == -1)
 	{
 		perror("SENDBYTES");
 		exit(1);
 	}
-
 
 	// FILE DATA SENT
 }
@@ -207,6 +214,7 @@ int main( int argc , char * argv[] )
 	{
 		// The accept command here creates a new file descriptor in case a connection is established.
 		new_fd = accept(sockfd, (struct sockaddr *)&their_addr, &sin_size);
+        printf("Connected with client");
 
 		if (new_fd == -1) 
 		{
@@ -225,7 +233,7 @@ int main( int argc , char * argv[] )
 			close(sockfd); // child doesn't need the listener
 			char recv_data[MAX_DATA_SIZE];
 			int bytes_received = recv(new_fd, recv_data, MAX_DATA_SIZE, 0);
-			printf("%s recv_data", recv_data);
+			printf("anuja %s recv_data", recv_data);
 			process(recv_data, new_fd);
 
 			// Now generate the header line , and other lines based on the protocol and send the resultant packets to the client for it to display the same to the user.For now , we are only going to look at text data . Then later on , we can think of images too.
