@@ -21,6 +21,6 @@ Webmaster_server.o: Webmaster_server.c
 Webmaster_client.o: Webmaster_client.c
 	gcc -g -c $<
 clean:
-	rm *.o
-	rm server client
+	rm -f *.o
+	rm -f server client
 

@@ -1,53 +1,0 @@
-1.0 2
-<MARKEM>
-1.0 2
-
-1.0 2
-<page_head>
-1.0 2
-    
-1.0 2
-    <page_title> MARKEM IDEAS </page_title>
-1.0 2
-
-1.0 2
-</page_head>
-1.0 2
-
-1.0 2
-<page_body>
-1.0 2
-
-1.0 2
-    <para>
-1.0 2
-        Markem is an awesome project, that can be extended in a lot of ways . For the basic part , we can try and handle the following stuff :
-1.0 2
-
-1.0 2
-        <itemize>
-1.0 2
-            <item> Have images and links opening .
-1.0 2
-            <item> Have a browser which can actually show the stuff . Have tabs in the browser , and back / forward buttons in that.
-1.0 2
-            <item> Once we can display text and images , we can try and display the text in a certain format.
-1.0 2
-            </itemize>
-1.0 2
-    </para>
-1.0 2
-
-1.0 2
-
-1.0 2
-
-1.0 2
-
-1.0 2
-</page_body>
-1.0 2
-
-1.0 2
-</MARKEM>
-D/MARKEM>

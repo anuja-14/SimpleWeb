@@ -121,20 +121,23 @@ void process(char *recv_data, int connection)
         char version[] = "1.0";
         char status[] = "2";
         create_packet(version, status , file_data, packet);
+#ifdef SERVER_DEBUG
+        printf("--------------------Server Log-----------------------------\n");
+		printf("%s sending data packet\n ",packet);
+        printf("-------------------Server Log End----------------\n");
+#endif
 		if((sentBytes = send(connection, packet, MAX_PACKET_SIZE, 0)) == -1)
 		{
 			perror("SENDBYTES");
 			exit(1);
 		}
-		printf("%s sending data packet ", file_data);
-        printf("-------------------------------------------------\n");
 	}
 	file_data[0] = 0x0D;
-	if((sentBytes = send(connection, file_data, strlen(file_data), 0)) == -1)
-	{
-		perror("SENDBYTES");
-		exit(1);
-	}
+	if((sentBytes = send(connection, file_data, MAX_PACKET_SIZE, 0)) == -1)
+		{
+			perror("SENDBYTES");
+			exit(1);
+		}
 
 	// FILE DATA SENT
 }

@@ -81,20 +81,17 @@ int main(int argc, char** argv)
 		perror("sentBytes");
 	}
 	int cnt = 0;
-    char *BASE_URL = "cache/";
+    char *BASE_URL = "./cache/";
     char fileSave[100];
     fileSave[0] = '\0';
     strcat(fileSave , BASE_URL );
     strcat(fileSave , file_path);
-    //printf("The file is %s " , fileSave );
+    printf("The file is %s " , fileSave );
     fflush(stdout);
-	fp = fopen(file_path, "w");
+	fp = fopen(fileSave, "w");
     int count = 0;
 	while(1)
 	{
-        if (count > 40)
-            break;
-        count++;
 		bytes_recieved = recv(clientSockID, recvData, 2048 , 0);
 		if (recvData[0] == 0x0D)
 		{
@@ -103,19 +100,27 @@ int main(int argc, char** argv)
 		}
 		else
 		{	
-		recvData[bytes_recieved] = '\0';
+    		recvData[bytes_recieved] = '\0';
+            int j;
             char message[2048];
             analyzePacket( recvData , message );
+#ifdef CLIENT_DEBUG
+            printf("------------------%d : Client Log------------------\n" , count );
+            printf("%s\n" , message );
+            printf("-----------------Log End---------------------\n");
+#endif
             if ( message != NULL )
             {
-                fprintf(fp, recvData);
-                recvData[bytes_recieved] = '\0';
-                //printf("\nRecieved data = %s " , recvData);
+                fprintf(fp, message);
+//                printf("\nRecieved data = %s " , message);
+            }
+            for ( j=0 ; j < 2048 ; j++ )
+            {
+                message[j] = '\0';
             }
 		}
 		cnt++;
 	}
 	fclose(fp);
-
 }
 

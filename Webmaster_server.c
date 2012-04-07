@@ -73,7 +73,6 @@ void create_packet ( char * HTTP_VERSION , char * status_code , char * file_data
     {
         request[i] = initial_line[i];
     }
-    printf("The packet generated is %s and the length of file_data is %d\n" , request , strlen(file_data));
     for(j = 0; j< strlen(file_data);j++)
 	{
 	request[i+j] = file_data[j]; 

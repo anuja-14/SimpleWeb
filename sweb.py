@@ -39,23 +39,22 @@ class BrowserWindow:
             tkMessageBox.showerror("Tkinter Entry Widget", "Enter URL")
         else:
             URL = self.entryWidget.get().strip();
+            self.w.delete(1.0 , END )
             print "./client " + sys.argv[0] + " " + sys.argv[1] +" " + URL
             os.system("./client " + sys.argv[1] + " " + sys.argv[2] +" " + URL);
             numlines = self.w.index('end - 1 line').split(' . ')[0]
-            self.w.delete(1.0 , numlines )
-            self.openPage( "/cache/"+URL );
-
-
+            print "Removing original content from the text widget. The number of lines are ",
+            print numlines
+            self.openPage( "./cache/"+URL );
 
 
     def openPage (self , file):
         input = open(file , 'r')
-        
         doc = input.readlines()
         soup = BeautifulSoup(''.join(doc))
         soup.prettify()
-        print soup
-        self.root.title = soup.page_title.contents[0]
+        #print soup
+        self.root.title(soup.page_title.contents[0])
         tag = soup.page_body
         self.parseDisplay( tag , tag.attrs )
 
@@ -80,21 +79,21 @@ class BrowserWindow:
 
     def writecontent(self , msg , style , tagCreationCount ):
         self.w['state']='normal'
-        print "-----------------------TKINTER LOG------------------------"
-        print msg
-        print style
-        print "------------------------Tkinter Log Done -----------------"
+        #        print "-----------------------TKINTER LOG------------------------"
+        #        print msg
+        #        print style
+        #        print "------------------------Tkinter Log Done -----------------"
         if tagCreationCount == 0:
             hyperlink = tkHyperlink.HyperlinkManager(self.w)
             self.w.insert('end' , msg , hyperlink.add(lambda: self.reallinkClick(style)))
             return
         elif tagCreationCount == -1:
-           print "Image found. Displaying !!"
-           img = PhotoImage ( file = 'Sachin_Ramesh_Tendulkar.gif' )
-           self.w.image_create ( 'end' , image = img )
-           print "Image created"
-           return
-        if style:
+            print "Image created is 1.gif"           
+            img = PhotoImage ( file = '1.gif' )
+            self.w.image_create ( 'end' , image = img )
+            print "Image created"
+            return
+        elif style:
             try:
                 ucolor = style['color']
             except KeyError:
@@ -116,7 +115,7 @@ if __name__=="__main__":
 
     window = BrowserWindow()
     home_page = "markemfiles/index.markem"
-  
+
 
     window.openPage(home_page)
     window.start()
