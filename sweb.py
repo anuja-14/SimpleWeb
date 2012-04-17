@@ -50,6 +50,7 @@ class BrowserWindow:
             if ( URL in self.cacheDictionary.keys() ):
                 os.system("./client " + sys.argv[1] + " " + sys.argv[2] +" " + URL + " " + "2" + + " " + self.cacheDictionary[URL]);
             else:
+                self.cacheDictionary[URL] = time.time()
                 os.system("./client " + sys.argv[1] + " " + sys.argv[2] +" " + URL + "1" );
 
     def openPage (self , file):
