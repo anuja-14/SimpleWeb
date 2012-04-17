@@ -74,6 +74,39 @@ void get_file_path(char* recv_data, char *file_path)
 	file_path[cnt_file] = '\0';
 }
 
+void get_time_by_client(char* recv_data, char* time_by_client)
+{
+    int cnt = 0,cnt_file = 0;    
+	char method[MAX_DATA_SIZE];
+	while(recv_data[cnt] != ' ')
+	{
+		method[cnt] = recv_data[cnt];
+		cnt++;
+	}
+	method[cnt] = '\0';
+	cnt++;
+    if(strcmp(method, "GET") == 0)
+    {
+        time_by_client = NULL;
+    }
+    else
+    {
+	while(recv_data[cnt] < 48 || recv_data[cnt] > 57 )
+	{
+		cnt++;
+	}
+    int j = 0;
+    while(recv_data[cnt] != '\0')
+    {
+        time_by_client[j] = recv_data[cnt];
+        j++;
+        cnt++;
+    }
+    }
+ 
+
+}
+
 char* get_method(char* recv_data)
 {
 }
@@ -86,11 +119,70 @@ char* getMessageBody()
 {
 }
 
+int callPython(char* filename, char* time_by_client)
+{
+    FILE *fp;
+    int status;
+    char path[1035];
+    char temp[1000] = "python history1.py anuja";
+    strcat(temp, filename);
+    strcat(temp, " ");
+    strcat(temp, time_by_client);
+    /* Open the command for reading. */
+    fp = popen(temp, "r");
+    if (fp == NULL) {
+        printf("Failed to run command\n" );
+        exit;
+    }
+    else
+    {printf("python calling worked");
+    }
+
+
+    /* Read the output a line at a time - output it. */
+    /* close */
+
+
+    while (fgets(path, sizeof(path)-1, fp) != NULL) {
+        printf("%s", path);
+        result = atoi(path);
+    }
+
+
+    pclose(fp);
+
+    return result;
+}
 void process(char *recv_data, int connection)
 {
+    int has_changed;
     char packet[MAX_PACKET_SIZE];
 	char file_path[MAX_DATA_SIZE];
+    char time_by_client[20];
 	get_file_path(recv_data, file_path);
+    get_time_by_client(recv_data, time_by_client);
+    if(time_by_client != NULL)
+    {
+    has_changed = callPython(file_path, time_by_client);
+    }
+    if(has_changed == 0)
+    {
+        char version[] = "1.0";
+        char status[] = "1";
+        create_packet(version, status , file_data, packet);
+#ifdef SERVER_DEBUG
+        printf("--------------------Server Log-----------------------------\n");
+		printf("%s sending data packet\n ",packet);
+        printf("-------------------Server Log End----------------\n");
+#endif
+		if((sentBytes = send(connection, packet, MAX_PACKET_SIZE, 0)) == -1)
+		{
+			perror("SENDBYTES");
+			exit(1);
+		}
+        return;
+
+    }
     printf("Finished getting the file path !!");
 	FILE *fp;
 	char file_data[MAX_DATA_SIZE];

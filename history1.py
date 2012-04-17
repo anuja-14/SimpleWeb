@@ -2,8 +2,8 @@ import os.path, time, sys
 HAS_CHANGED = 0
 fileName = sys.argv[1]
 timeByClient = sys.argv[2]
-timeFileLastModified = time.strptime(time.ctime(os.path.getmtime(fileName)))
-timeByClientInFormat = time.strptime(timeByClient)
+timeFileLastModified = (os.path.getmtime(fileName))
+timeByClientInFormat = timeByClient
 
 if timeFileLastModified > timeByClientInFormat:
     HAS_CHANGED  = 1
