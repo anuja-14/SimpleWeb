@@ -46,12 +46,14 @@ class BrowserWindow:
 
     def clearPage ( self , URL):
             numlines = self.w.index('end - 1 line').split(' . ')[0]
+            self.w['state']=['normal']
             self.w.delete( 1.0 , END )
+            self.w['state']=['disabled']
             if ( URL in self.cacheDictionary.keys() ):
-                os.system("./client " + sys.argv[1] + " " + sys.argv[2] +" " + URL + " " + "2" + + " " + self.cacheDictionary[URL]);
+                os.system("./client " + sys.argv[1] + " " + sys.argv[2] +" " + URL + " " + "2"  + " " + str(self.cacheDictionary[URL]));
             else:
                 self.cacheDictionary[URL] = time.time()
-                os.system("./client " + sys.argv[1] + " " + sys.argv[2] +" " + URL + "1" );
+                os.system("./client " + sys.argv[1] + " " + sys.argv[2] +" " + URL + " " + "1" );
 
     def openPage (self , file):
         input = open(file , 'r')
@@ -93,10 +95,10 @@ class BrowserWindow:
             self.w.insert('end' , msg , hyperlink.add(lambda: self.reallinkClick(style)))
             return
         elif tagCreationCount == -1:
-            print "Image created is 1.gif"           
+            #print "Image created is 1.gif"           
             img = PhotoImage ( file = 'Sachin_Ramesh_Tendulkar.gif' )
             self.w.image_create ( INSERT , image = img )
-            print "Image created"
+            #print "Image created"
             return
         elif style:
             try:

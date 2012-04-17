@@ -1,137 +1,20 @@
 <MARKEM>
 
 <page_head>
-<page_title> CLIENT CODE </page_title>
+<page_title> BEAUTIFUL SOUP</page_title>
 </page_head>
 
 <page_body>
 
 <para>
-#include<sys/socket.h>
-#include<sys/types.h>
-#include<netinet/in.h>
-#include<netdb.h>
-#include<stdio.h>
-#include<string.h>
-#include<stdarg.h>
-#include<stdlib.h>
-#include<unistd.h>
-#include<errno.h>
 
-char *analyzePacket ( char * packet , char * message)
-{
-    int cnt = 0,cnt_message = 0;    
-    char changed;
-    fflush(stdout);
-   while(packet[cnt] != ' ')
-    {
-        cnt++;
-    }
-    cnt++;
-    changed = packet[cnt];
-    cnt++;
-    cnt++;
-  
-    while(packet[cnt] !=0x0D)
-    {
-        if ( changed == '2' )
-        {
-            message[cnt_message]=packet[cnt];
-            cnt++;
-            cnt_message++;
-        }
-        else
-           return NULL;
-    }
-    
-            //printf("%s \n" , message);
-    fflush(stdout);
- 
-}
+<em color="green">Beautiful Soup</em> is a Python library for pulling data out of HTML and XML files. It works with your favorite parser to provide idiomatic ways of navigating, searching, and modifying the parse tree. It commonly saves programmers hours or days of work.
 
-int main(int argc, char** argv)
-{
-	FILE *fp;
-	int clientSockID, bytes_recieved, sentBytes;
-	char packet[2048];
-	char *file_path, recvData[2048];
-	struct hostent *host;
-	struct sockaddr_in serverAddr;
-	struct timeval timeout;
-	host = gethostbyname((char *)argv[2]);
+These instructions illustrate all major features of Beautiful Soup 4, with examples. I show you what the library is good for, how it works, how to use it, how to make it do what you want, and what to do when it violates your expectations.
 
-    // Not able to connect to the server . Error and exit
-	if((clientSockID = socket(AF_INET, SOCK_STREAM, 0)) == -1)
-	{
-		perror("Socket");
-		exit(1);
-	}
-	serverAddr.sin_family = AF_INET;
-	serverAddr.sin_port = htons(atoi(argv[1]));
-	serverAddr.sin_addr = *((struct in_addr *)host -> h_addr);
-	bzero(&(serverAddr.sin_zero), 8);
+The examples in this documentation should work the same way in Python 2.7 and Python 3.2.
 
-	if(connect(clientSockID, (struct sockaddr*)&serverAddr, sizeof(struct sockaddr)) == -1)
-	{
-		perror("connect");
-		exit(1);
-	}
-
-//	gets(file_path);
-	file_path = argv[3];
-    //printf("File to be got : %s " , file_path );
-    fflush(stdout);
-
-	create_packet("GET", file_path, "", packet);
-    //printf("Packet is %s \n",packet);
-    fflush(stdout);
-	if( (sentBytes =  send(clientSockID, packet, strlen(packet), 0)) == -1)
-	{
-		perror("sentBytes");
-	}
-	int cnt = 0;
-    char *BASE_URL = "./cache/";
-    char fileSave[100];
-    fileSave[0] = '\0';
-    strcat(fileSave , BASE_URL );
-    strcat(fileSave , file_path);
-    printf("The file is %s " , fileSave );
-    fflush(stdout);
-	fp = fopen(fileSave, "w");
-    int count = 0;
-	while(1)
-	{
-		bytes_recieved = recv(clientSockID, recvData, 2048 , 0);
-		if (recvData[0] == 0x0D)
-		{
-			close(clientSockID);
-			break;
-		}
-		else
-		{	
-    		recvData[bytes_recieved] = '\0';
-            int j;
-            char message[2048];
-            analyzePacket( recvData , message );
-#ifdef CLIENT_DEBUG
-            printf("------------------%d : Client Log------------------\n" , count );
-            printf("%s\n" , message );
-            printf("-----------------Log End---------------------\n");
-#endif
-            if ( message != NULL )
-            {
-                fprintf(fp, message);
-//                printf("\nRecieved data = %s " , message);
-            }
-            for ( j=0 ; j < 2048 ; j++ )
-            {
-                message[j] = '\0';
-            }
-		}
-		cnt++;
-	}
-	fclose(fp);
-}
+You might be looking for the documentation for Beautiful Soup 3. If you want to learn about the differences between Beautiful Soup 3 and Beautiful Soup 4, see Porting code to BS4.
 </para>
 
 </page_body>

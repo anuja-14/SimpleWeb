@@ -1,13 +1,30 @@
 <MARKEM>
 
 <page_head>
-<page_title> FILE 1</page_title>
+<page_title> BEAUTIFUL SOUP </page_title>
 </page_head>
 
 <page_body>
 
 <para>
-    
+   This is the first file here. The GUI part is done using Python app called Tkinter . Some info about Tkinter is :
+
+   <break>
+   </break>
+
+   The Tkinter module ("Tk interface") is the standard Python interface to the Tk GUI toolkit from Scriptics (formerly developed by Sun Labs).Both Tk and Tkinter are available on most Unix platforms, as well as on Windows and Macintosh systems. Starting with the 8.0 release, Tk offers native look and feel on all platforms.
+
+Tkinter consists of a number of modules. The Tk interface is located in a binary module named _tkinter (this was tkinter in earlier versions). This module contains the low-level interface to Tk, and should never be used directly by application programmers. It is usually a shared library (or DLL), but might in some cases be statically linked with the Python interpreter.
+
+In addition to the Tk interface module, Tkinter includes a number of Python modules. The two most important modules are the Tkinter module itself, and a module called Tkconstants. The former automatically imports the latter, so to use Tkinter, all you need to do is to import one module:
+
+<em color="blue">    import Tkinter</em>
+
+Or, more often:
+
+<em color="blue">    from Tkinter import * </em>
+
+To know about the parser , click on <link markref="file2.markem" display="Beautiful Soup">
 </para>
 
 </page_body>

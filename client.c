@@ -11,7 +11,7 @@
 
 int printed = 0;
 
-void analyzePacket ( char * packet , char * message)
+int analyzePacket ( char * packet , char * message)
 {
     int cnt = 0,cnt_message = 0;    
     char changed;
@@ -25,6 +25,11 @@ void analyzePacket ( char * packet , char * message)
     cnt++;
     cnt++;
   
+    if ( changed == '1' )
+    {
+        message = NULL;
+        return 0;
+    }
     while(packet[cnt] !=0x0D)
     {
         if ( changed == '2' )
@@ -46,10 +51,11 @@ void analyzePacket ( char * packet , char * message)
                 printf("File not changed");
                 printed = 1;
             }
+            return 0;
         }
     }
     
-            //printf("%s \n" , message);
+    return 1;
     fflush(stdout);
  
 }
@@ -84,7 +90,7 @@ int main(int argc, char** argv)
 
 //	gets(file_path);
 	file_path = argv[3];
-    printf("File to be got : %s " , file_path );
+//    printf("File to be got : %s " , file_path );
     fflush(stdout);
 
 
@@ -97,7 +103,6 @@ int main(int argc, char** argv)
         create_packet("HAS_CHANGED" , file_path , argv[5] , packet );
         printf("Client Packet : HAS_CHANGED \t %s\n", file_path );
     }
-//    printf("Packet is %s \n",packet);
     fflush(stdout);
 	if( (sentBytes =  send(clientSockID, packet, strlen(packet), 0)) == -1)
 	{
@@ -109,10 +114,8 @@ int main(int argc, char** argv)
     fileSave[0] = '\0';
     strcat(fileSave , BASE_URL );
     strcat(fileSave , file_path);
-    printf("The file is %s " , fileSave );
     fflush(stdout);
-	fp = fopen(fileSave, "w");
-    int count = 0;
+    int count = 0 , flag = 0;
 	while(1)
 	{
 		bytes_recieved = recv(clientSockID, recvData, 2048 , 0);
@@ -123,19 +126,26 @@ int main(int argc, char** argv)
 		}
 		else
 		{	
+            int k;
     		recvData[bytes_recieved] = '\0';
             int j;
             char message[2048];
-            analyzePacket( recvData , message );
+            k = analyzePacket( recvData , message );
 #ifdef CLIENT_DEBUG
             printf("------------------%d : Client Log------------------\n" , count );
             printf("%s\n" , message );
             printf("-----------------Log End---------------------\n");
 #endif
-            if ( message != NULL )
+            if ( k != 0 )
             {
+                if (!flag )
+	                fp = fopen(fileSave, "w");
+                flag = 1;
                 fprintf(fp, message);
-//                printf("\nRecieved data = %s " , message);
+            }
+            else if ( k== 0 )
+            {
+                break;
             }
             for ( j=0 ; j < 2048 ; j++ )
             {
@@ -144,6 +154,7 @@ int main(int argc, char** argv)
 		}
 		cnt++;
 	}
-	fclose(fp);
+    if ( flag )
+    	fclose(fp);
 }
 

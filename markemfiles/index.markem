@@ -6,14 +6,12 @@
 
 <page_body>
 <para color = "black">
-    Welcome to the <em color="red">SIMPLE WEB BROWSER</em> . This is a browser made completely in python. Written as part of the Networks Lab, it has a number of features which include the following -
+    Welcome to the <em color="red">SIMPLE WEB BROWSER</em> . This is a browser made completely in python. Written as part of the Networks Lab, it has a number of features which uses Tkinter. To read on that , you can click on the link below-
     <break>
     </break>
 
     <itemize color="green">
-        <item> <link markref="file1.markem" display="FILE 1">
-        <item> <link markref="file2.markem" display="FILE 2">
-        <item> <link markref="file3.markem" display="FILE 3">
+        <item> <link markref="file1.markem" display="Tkinter">
     </itemize>
 
     <em> Points </em> : The main points supported by this browser are that it supports links for viewing of files. In addition, in case you have already viewed a page and within a time limit if you refresh the page , then the client sends a HAS_CHANGED packet to determine whether or not the page has been changed since the last file transfer. In case the file has changed, the file is re-sent or else a NOT_CHANGED packet is sent.

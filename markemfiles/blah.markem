@@ -1,0 +1,16 @@
+
+<MARKEM>
+
+<page_head>
+<page_title> BLAH</page_title>
+</page_head>
+
+<page_body>
+
+<para>
+   This is the file that should be displayed if I have no other file to display. 
+</para>
+
+</page_body>
+
+</MARKEM>
