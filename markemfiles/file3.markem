@@ -1,3 +1,12 @@
+<MARKEM>
+
+<page_head>
+<page_title> BROWSER CODE </page_title>
+</page_head>
+
+<page_body>
+
+<para>
 from bs4 import BeautifulSoup , Tag
 import sys
 from Tkinter import *
@@ -118,6 +127,9 @@ if __name__=="__main__":
 
     window.openPage(home_page)
     window.start()
+</para>
 
 
+</page_body>
 
+</MARKEM>
