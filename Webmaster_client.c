@@ -77,6 +77,14 @@ void create_packet ( char * method , char * file_path , char * optional_message,
     }
     request[i] = LR;
     i++;
+    if ( optional_message != NULL )
+    {
+        for ( j = 0 ; j < strlen(optional_message) ; j++ )
+        {
+            request[i] = optional_message[j];
+            i++;
+        }
+    }
     request[i] = '\0';
    /* 
     i=i+1;

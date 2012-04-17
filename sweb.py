@@ -1,9 +1,9 @@
 from bs4 import BeautifulSoup , Tag
+import time
 import sys
 from Tkinter import *
 import tkHyperlink
 import subprocess
-
 import os
 
 class BrowserWindow:
@@ -32,6 +32,9 @@ class BrowserWindow:
         self.root.title('SiMple Web')
         self.count = 0
 
+        self.cacheDictionary = {}
+        self.timeOut = 100000000
+
     def displayText(self):
         """ Display the Entry text value. """
         if self.entryWidget.get().strip() == "":
@@ -44,7 +47,10 @@ class BrowserWindow:
     def clearPage ( self , URL):
             numlines = self.w.index('end - 1 line').split(' . ')[0]
             self.w.delete( 1.0 , END )
-            os.system("./client " + sys.argv[1] + " " + sys.argv[2] +" " + URL);
+            if ( URL in self.cacheDictionary.keys() ):
+                os.system("./client " + sys.argv[1] + " " + sys.argv[2] +" " + URL + " " + "2" + + " " + self.cacheDictionary[URL]);
+            else:
+                os.system("./client " + sys.argv[1] + " " + sys.argv[2] +" " + URL + "1" );
 
     def openPage (self , file):
         input = open(file , 'r')
@@ -115,7 +121,7 @@ if __name__=="__main__":
     window = BrowserWindow()
     home_page = "markemfiles/index.markem"
 
-
+    
     window.openPage(home_page)
     window.start()
 

@@ -9,7 +9,9 @@
 #include<unistd.h>
 #include<errno.h>
 
-char *analyzePacket ( char * packet , char * message)
+int printed = 0;
+
+void analyzePacket ( char * packet , char * message)
 {
     int cnt = 0,cnt_message = 0;    
     char changed;
@@ -27,12 +29,24 @@ char *analyzePacket ( char * packet , char * message)
     {
         if ( changed == '2' )
         {
+            if ( printed == 0 )
+            {
+                printf("File changed. Getting the file again");
+                printed = 1;
+            }
             message[cnt_message]=packet[cnt];
             cnt++;
             cnt_message++;
         }
         else
-           return NULL;
+        {
+            message = NULL;
+            if ( printed == 0 )
+            {
+                printf("File not changed");
+                printed = 1;
+            }
+        }
     }
     
             //printf("%s \n" , message);
@@ -70,11 +84,20 @@ int main(int argc, char** argv)
 
 //	gets(file_path);
 	file_path = argv[3];
-    //printf("File to be got : %s " , file_path );
+    printf("File to be got : %s " , file_path );
     fflush(stdout);
 
-	create_packet("GET", file_path, "", packet);
-    //printf("Packet is %s \n",packet);
+
+    if ( strcmp(argv[4],"1")==0 )
+    {
+    	create_packet("GET", file_path, NULL, packet);
+        printf("Client Packet : GET \t %s\n " , file_path );
+    }
+    else if ( strcmp(argv[4],"2")==0 ){
+        create_packet("HAS_CHANGED" , file_path , argv[5] , packet );
+        printf("Client Packet : HAS_CHANGED \t %s\n", file_path );
+    }
+//    printf("Packet is %s \n",packet);
     fflush(stdout);
 	if( (sentBytes =  send(clientSockID, packet, strlen(packet), 0)) == -1)
 	{
