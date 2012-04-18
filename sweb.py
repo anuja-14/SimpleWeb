@@ -51,6 +51,7 @@ class BrowserWindow:
             self.w['state']=['disabled']
             if ( URL in self.cacheDictionary.keys() ):
                 os.system("./client " + sys.argv[1] + " " + sys.argv[2] +" " + URL + " " + "2"  + " " + str(self.cacheDictionary[URL]));
+                self.cacheDictionary[URL] = time.time()
             else:
                 self.cacheDictionary[URL] = time.time()
                 os.system("./client " + sys.argv[1] + " " + sys.argv[2] +" " + URL + " " + "1" );
