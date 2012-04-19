@@ -1,12 +1,17 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2010.8.9)  17 APR 2012 21:44
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.3.31)  19 APR 2012 15:05
 entering extended mode
- restricted \write18 enabled.
  %&-line parsing enabled.
 **Report.tex
 (./Report.tex
 LaTeX2e <2009/09/24>
 Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
-yphenation, loaded.
+yphenation, farsi, arabic, croatian, bulgarian, ukrainian, russian, czech, slov
+ak, danish, dutch, finnish, french, basque, ngerman, german, german-x-2009-06-1
+9, ngerman-x-2009-06-19, ibycus, monogreek, greek, ancientgreek, hungarian, san
+skrit, italian, latin, latvian, lithuanian, mongolian2a, mongolian, bokmal, nyn
+orsk, romanian, irish, coptic, serbian, turkish, welsh, esperanto, uppersorbian
+, estonian, indonesian, interlingua, icelandic, kurmanji, slovenian, polish, po
+rtuguese, spanish, galician, catalan, swedish, ukenglish, pinyin, loaded.
 (/usr/share/texmf-texlive/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/share/texmf-texlive/tex/latex/base/size10.clo
@@ -46,7 +51,7 @@ File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
 Package graphics Info: Driver file: pdftex.def on input line 91.
 
 (/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2009/08/25 v0.04m Graphics/color for pdfTeX
+File: pdftex.def 2010/03/12 v0.04p Graphics/color for pdfTeX
 \Gread@gobject=\count87
 ))
 \Gin@req@height=\dimen103
@@ -290,11 +295,13 @@ Package: epstopdf-base 2009/10/17 v2.4 Base part for package epstopdf
 (/usr/share/texmf-texlive/tex/latex/oberdiek/grfext.sty
 Package: grfext 2007/09/30 v1.0 Managing graphics extensions (HO)
 )
+
+Package epstopdf Warning: Shell escape feature is not enabled.
+
 Package grfext Info: Graphics extension search list:
 (grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 433.
-
 (/usr/share/texmf-texlive/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2009/10/26 v1.1 Configuration of epstopdf for TeX Live
 )))
@@ -408,22 +415,23 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 
 [2] (./Report.aux) ) 
 Here is how much of TeX's memory you used:
- 6818 strings out of 495061
- 97519 string characters out of 1182622
- 197907 words of memory out of 3000000
- 9860 multiletter control sequences out of 15000+50000
- 9804 words of font info for 37 fonts, out of 3000000 for 9000
- 28 hyphenation exceptions out of 8191
+ 6831 strings out of 493848
+ 97678 string characters out of 1152823
+ 200642 words of memory out of 3000000
+ 9970 multiletter control sequences out of 15000+50000
+ 11503 words of font info for 45 fonts, out of 3000000 for 9000
+ 714 hyphenation exceptions out of 8191
  38i,6n,58p,313b,319s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cm
 bx10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></
-usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/te
-xmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/
-fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/
-public/amsfonts/cm/cmsy10.pfb>
-Output written on Report.pdf (2 pages, 116251 bytes).
+usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/t
+exmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive
+/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1
+/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/public/amsf
+onts/cm/cmsy10.pfb>
+Output written on Report.pdf (2 pages, 121923 bytes).
 PDF statistics:
- 61 PDF objects out of 1000 (max. 8388607)
+ 65 PDF objects out of 1000 (max. 8388607)
  7 named destinations out of 1000 (max. 500000)
  38 words of extra memory for PDF output out of 10000 (max. 10000000)
 
